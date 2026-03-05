@@ -44,43 +44,43 @@ app.post('/mcp', async (req, res) => {
 
 
   // Manejo del método 'tools/list' (Retell lo llama para conocer las herramientas disponibles)
-  if (body.method === 'tools/list') {
-    return res.json({
-      jsonrpc: '2.0',
-      id: body.id,
-      result: {
-        tools: [
-          {
-            name: 'send_lead_to_mcp',
-            description: 'Send lead information to n8n webhook for processing',
-            inputSchema: {
-              type: 'object',
-              properties: {
-                name: { type: 'string' },
-                phone_number: { type: 'string' },
-                address: { type: 'string' },
-                vehicles: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      make: { type: 'string' },
-                      model: { type: 'string' },
-                      year: { type: 'string' }
-                    },
-                    required: ['make', 'model', 'year']
-                  }
-                },
-                call_status: { type: 'string', enum: ['success'] },
-                source: { type: 'string', enum: ['retell_outbound_call'] }
+ if (body.method === 'tools/list') {
+  return res.json({
+    jsonrpc: '2.0',
+    id: body.id,
+    result: {
+      tools: [
+        {
+          name: 'send_lead_to_mcp',
+          description: 'Send lead information to n8n webhook for processing',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              name: { type: 'string' },
+              phone_number: { type: 'string' },      // opcional
+              address: { type: 'string' },            // opcional
+              vehicles: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    make: { type: 'string' },
+                    model: { type: 'string' },
+                    year: { type: 'string' }
+                  },
+                  required: ['make', 'model', 'year']
+                }
               },
-              required: ['name', 'phone_number', 'address', 'vehicles', 'call_status', 'source']
-            }
+              call_status: { type: 'string', enum: ['success'] },
+              source: { type: 'string', enum: ['retell_outbound_call'] }
+            },
+            required: ['name', 'vehicles', 'call_status', 'source']   // <-- solo estos son obligatorios
           }
-        ]
-      }
-    });
-  }
+        }
+      ]
+    }
+  });
+}
 
   // Manejo del método 'tools/call' (cuando Retell ejecuta la herramienta)
   if (body.method === 'tools/call') {
