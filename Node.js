@@ -84,7 +84,7 @@ app.post('/mcp', async (req, res) => {
     if (name === 'send_lead_to_mcp') {
       try {
         // Llama al webhook de n8n con los datos
-        const n8nResponse = await axios.post('https://tu-n8n-webhook-url', args, {
+        const n8nResponse = await axios.post('https://baalbarracinb.app.n8n.cloud/webhook/4155f0e0-7188-4697-b460-68644a8397c7', args, {
           headers: { 'Content-Type': 'application/json' }
         });
 
