@@ -35,7 +35,7 @@ app.post('/mcp', async (req, res) => {
       jsonrpc: '2.0',
       id: body.id,
       result: {
-        protocolVersion: '0.1.0',
+        protocolVersion: '2024-11-05',
         capabilities: {
           tools: {
             listChanged: false
